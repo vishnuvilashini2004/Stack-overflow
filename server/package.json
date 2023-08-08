@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build" : "npm i",
-    "start" : "nodemon index.js"
+    "start" : "node index.js"
   },
   "author": "Vishnu Vilashini S",
   "license": "ISC",
