@@ -61,7 +61,7 @@ const QuestionsDetails = () => {
         time: "aug 1",
         userId: 1,
         answer: [{
-          answerBody: "Answer",
+          answerBody: "Answer",  
           userAnswered: 'shree',
           answeredOn: "jan 2",
           userId: 2,
@@ -72,7 +72,7 @@ const QuestionsDetails = () => {
   const [Answer, setAnswer] = useState('')
   const User = useSelector((state) => (state.currentUserReducer))
   const location = useLocation()
-  const url = 'http://localhost:5000'
+  const url = 'http://localhost:3000'
 
   const handlePostAns = (e, answerLength) => {
     e.preventDefault()
@@ -175,7 +175,7 @@ const QuestionsDetails = () => {
                                 <Link to='/Tags' key={tag} className='ans-tags'> {tag} </Link>
                               ))
                             } or 
-                            <Link to='/AskQuestion' style={{textDecoration: "none", color: "#009dff"}}> ask your own question.</Link>
+                            <Link to='/AskQuestion' style={{textDecoration: "none", color: "#009dff"}}> Ask your own question.</Link>
                           </p>
                         </section>
                       </div>

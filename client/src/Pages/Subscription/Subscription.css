@@ -1,0 +1,49 @@
+.heading{
+  text-align: center;
+  margin-top: 3rem;
+  color: gray;
+  padding-left: 7rem;
+}
+.cards{
+  width: 180px;
+  height: 180px;
+  background-color:burlywood;
+  /* text-align: center; */
+  /* margin: auto; */
+
+}
+.free{
+  margin-top: 3px;
+  font-size: medium;
+  font: bold;
+}
+.details{
+  margin-top: 4px;
+  padding-top: 4px;
+}
+.symbol{
+  color: green;
+  font: bold;
+  font-size: 1.4rem;
+}
+.button{
+  text-align: center;
+  width: 90px;
+  font: 600;
+  padding-left: 4px;
+  background-color:chocolate;
+}
+.main{
+  display: flex;
+  gap: 12;
+  justify-content: space-around;
+  padding-right: 20rem;
+  
+}
+.borders{
+  border-left: 1px solid black;
+  padding-left: 0.3rem
+}
+.silver{
+  border-right: 1px solid black;
+}

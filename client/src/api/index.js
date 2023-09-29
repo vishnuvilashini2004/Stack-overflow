@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://localhost:5000",
+  baseURL: "http://localhost:5000",
 });
 
 API.interceptors.request.use((req) => {
@@ -23,3 +23,7 @@ export const deleteAnswer = (id, answerId, noOfAnswers) => API.patch(`/answer/de
 export const voteQuestion = (id, value, userId) => API.patch(`/questions/vote/${id}`, { value, userId})
 export const getAllUsers = () => API.get("/user/getAllUsers");
 export const updateProfile = (id, updateData) => API.patch(`/user/update/${id}`, updateData);
+
+//export const order = (amount) => API.post("/subscription/order", { amount });
+//export const verifyOrder = (id, amount, response) => API.post("/subscription/is-order-complete", { id, amount, response });
+//export const checkSubs = (userId) => API.get(`/subscription/check-subscription/${userId}`);

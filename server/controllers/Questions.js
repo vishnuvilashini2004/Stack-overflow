@@ -2,15 +2,45 @@ import Questions from '../models/Questions.js'
 import mongoose from 'mongoose'
 
 export const AskQuestion = async (req, res) => {
-    const postQuestionData = req.body;
-    const postQuestion = new Questions(postQuestionData);
-    try{
-        await postQuestion.save();
-        res.status(200).json("Posted a question successfully")
-    }catch(error) {
-        console.log(error)
-        res.status(409).json("Couldn't post a new question")
+  const postQuestionData = req.body;
+  const userId = req.userId;
+  try {
+    const user = await User.findById(userId);
+
+    if (user.lastQuestionDate) {
+      const lastQuestionDate = new Date(user.lastQuestionDate);
+      const today = new Date();
+      if (lastQuestionDate.getDate() !== today.getDate()) {
+        user.todayQuestionCount = 0;
+      }
     }
+
+    if (user.subscription === "silver" || user.subscription === "gold") {
+      let currentTime = new Date().getTime();
+      const diff = user.subsExpire - currentTime;
+      if (diff < 0) {
+        return res.status(403).json("Your subscription is expired");
+      }
+    }
+
+    if (user.subscription === "free" && user.todayQuestionCount >= 1) {
+      return res.status(403).json("You have reached your daily limit");
+    }
+
+    if (user.subscription === "silver" && user.todayQuestionCount >= 5) {
+      return res.status(403).json("You have reached your daily limit");
+    }
+
+    const postQuestion = new Questions({ ...postQuestionData, userId });
+    user.todayQuestionCount = user.todayQuestionCount + 1;
+    user.lastQuestionDate = Date.now();
+    await user.save();
+    await postQuestion.save();
+    res.status(200).json("Posted a question successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(403).json("Couldn't post a new question");
+  }
 }
 
 export const getAllQuestions = async (req, res) => {
@@ -81,3 +111,17 @@ export const deleteQuestion = async (req, res) => {
       res.status(404).json({ message: "id not found" });
     }
   };
+
+  export const questionsAsked = async (req,res) => {
+    try{
+      const { id: _id } = req.params;
+      const today = new Date();
+      today.setUTCHours(0, 0, 0, 0);
+  
+      const questionCount = await Questions.countDocuments({ userId: _id, askedOn: { $gte: today } });
+      // const data = JSON.stringify(question);
+      res.status(200).json(questionCount);
+    } catch (err) {
+      console.log(err);
+    }
+  }

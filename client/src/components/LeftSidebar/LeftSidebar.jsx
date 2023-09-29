@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import Globe from '../../assets/Globe.svg'
 
 const LeftSidebar = () => {
+//const { showSidebar, toggleSidebar } = useContext(SidebarContext);
   return (
     <div className='left-sidebar'>
         <nav className='side-nav'>
@@ -21,6 +22,14 @@ const LeftSidebar = () => {
                 </NavLink>
                 <NavLink to='/Users'  className='side-nav-links' style={{paddingLeft: "40px"}}>
                     <p>Users</p>
+                </NavLink>
+                <NavLink
+                  to="/Subscription"
+                  className="side-nav-links"
+                 // activeclassname="active"
+                  style={{ paddingLeft: "40px" }}
+                >
+                  <p>Subscription</p>
                 </NavLink>
             </div>
         </nav>

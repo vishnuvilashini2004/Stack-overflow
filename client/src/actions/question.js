@@ -2,14 +2,16 @@ import * as api from "../api/index";
 
 export const askQuestion = (questionData, navigate) => async (dispatch) => {
   try {
-    const { data } = await api.postQuestion(questionData);
-    dispatch({ type: "POST_QUESTION", payload: data });
-    dispatch(fetchAllQuestions());
-    navigate("/");
-  } catch (error) {
-    console.log(error);
-  }
-};
+    const {data}= await api.postQuestion(questionData)
+    dispatch({type: 'POST_QUESTION', payload: data});
+    dispatch(fetchAllQuestions())
+    navigate('/');
+} catch (error) {
+    navigate("/subscription");
+    alert("Please update the subscription to ask more question");
+    console.log(error)
+}
+}
 
 export const fetchAllQuestions = () => async (disptach) => {
   try {
